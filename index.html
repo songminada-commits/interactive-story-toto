@@ -39,7 +39,7 @@ h1{
   color:#333;
   line-height:2;
   margin:20px 0;
-  min-height:100px;
+  min-height:80px;
 }
 .image{
   width:100%;
@@ -48,6 +48,12 @@ h1{
   border-radius:20px;
   background-size:cover;
   background-position:center;
+  box-shadow:0 5px 20px rgba(0,0,0,0.2);
+  animation:zoomSoft 8s infinite alternate;
+}
+@keyframes zoomSoft{
+  from{transform:scale(1);}
+  to{transform:scale(1.02);}
 }
 .buttons{
   display:flex;
@@ -89,6 +95,7 @@ button:hover{
   cursor:pointer;
   font-weight:bold;
   z-index:100;
+  font-size:16px;
 }
 .voice-btn:hover{background:#45a049;}
 @media(max-width:600px){
@@ -108,7 +115,7 @@ button:hover{
 <!-- 씬 1 -->
 <div class="scene active" id="scene1">
 <h1>🐰 토토와 신비한 버튼</h1>
-<div class="image" style="background:linear-gradient(135deg,#87CEEB,#E0F6FF)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 어느 날 맑은 아침, 토끼 토토는 숲속을 산책하고 있었어요.<br>
 새들은 노래하고, 햇빛은 반짝이고 있었답니다.<br>
@@ -123,7 +130,7 @@ button:hover{
 <!-- 씬 2 -->
 <div class="scene" id="scene2">
 <h1>✨ 신비한 빛의 문</h1>
-<div class="image" style="background:linear-gradient(135deg,#FFD700,#FFA500)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 토토가 버튼을 누르자, 눈이 부실 정도의 찬란한 금색 빛이 나타났어요!<br>
 그리고 마법의 문이 활짝 열렸답니다!<br>
@@ -139,7 +146,7 @@ button:hover{
 <!-- 씬 3 -->
 <div class="scene" id="scene3">
 <h1>🍃 조용한 숲길</h1>
-<div class="image" style="background:linear-gradient(180deg,#87CEEB,#90EE90)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 토토는 신중하게 버튼을 누르지 않고 조용한 숲길을 따라 걸어갔어요.<br>
 새들의 노래도 부드럽고, 햇빛도 따뜻했답니다.<br>
@@ -154,7 +161,7 @@ button:hover{
 <!-- 씬 4 -->
 <div class="scene" id="scene4">
 <h1>🐻 길을 잃은 친구</h1>
-<div class="image" style="background:linear-gradient(135deg,#FFB6C1,#FFC0CB)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1516934024742-b461fba47600?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 마법의 세계에서 작은 울음소리가 들렸어요.<br>
 따라가 보니 갈색 곰 친구가 길을 잃고 슬프게 울고 있었답니다.<br>
@@ -169,7 +176,7 @@ button:hover{
 <!-- 씬 5 -->
 <div class="scene" id="scene5">
 <h1>🌈 무지개 강</h1>
-<div class="image" style="background:linear-gradient(180deg,#87CEEB,#E0FFFF)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 토토가 걸어가다 보니 신기한 무지개 빛이 흐르는 강을 발견했어요!<br>
 강 위에는 반짝이는 다리가 있었고, 멀리 보물상자가 보였답니다.<br>
@@ -184,7 +191,7 @@ button:hover{
 <!-- 씬 6 -->
 <div class="scene" id="scene6">
 <h1>🦉 지혜로운 부엉이</h1>
-<div class="image" style="background:linear-gradient(180deg,#1a1a2e,#16213e)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1511497584788-876760111969?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 신비한 나무 위에 지혜로운 부엉이가 앉아있었어요.<br>
 부엉이는 토토에게 말했답니다:<br>
@@ -198,7 +205,7 @@ button:hover{
 <!-- 씬 7 -->
 <div class="scene" id="scene7">
 <h1>🌸 비밀 꽃밭</h1>
-<div class="image" style="background:linear-gradient(180deg,#FFB6C1,#FFD700)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 지도를 따라가던 토토는 아름다운 비밀 꽃밭을 발견했어요!<br>
 하늘색, 빨간색, 노란색 꽃들이 바람에 흔들리고 있었답니다.<br>
@@ -212,7 +219,7 @@ button:hover{
 <!-- 엔딩 1 -->
 <div class="scene" id="ending1">
 <h1>🥳 행복한 결말</h1>
-<div class="image" style="background:linear-gradient(135deg,#FFD700,#FF69B4)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 토토는 착한 마음으로 곰 친구를 도와주었어요.<br>
 결국 곰은 자기 엄마를 찾을 수 있었답니다.<br>
@@ -227,7 +234,7 @@ button:hover{
 <!-- 엔딩 2 -->
 <div class="scene" id="ending2">
 <h1>💎 반짝이는 보물</h1>
-<div class="image" style="background:linear-gradient(135deg,#FFD700,#FFA500)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 보물상자를 열어보니 반짝이는 별사탕들이 있었어요!<br>
 토토는 바로 친구들에게 달려가 이 보물을 나누어 주었답니다.<br>
@@ -242,7 +249,7 @@ button:hover{
 <!-- 엔딩 3 -->
 <div class="scene" id="ending3">
 <h1>🎶 노래하는 숲</h1>
-<div class="image" style="background:linear-gradient(180deg,#87CEEB,#90EE90)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 토토는 새 친구들과 함께 아름다운 노래를 불렀어요.<br>
 음악 소리에 숲 전체가 반응했답니다.<br>
@@ -257,7 +264,7 @@ button:hover{
 <!-- 엔딩 4 -->
 <div class="scene" id="ending4">
 <h1>🎂 달콤한 파티</h1>
-<div class="image" style="background:linear-gradient(135deg,#FFB6C1,#FFC0CB)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 토토와 곰은 달콤한 생일 케이크를 함께 먹었어요!<br>
 초콜릿 향기와 딸기의 신맛이 입안에 가득했답니다.<br>
@@ -272,7 +279,7 @@ button:hover{
 <!-- 엔딩 5 -->
 <div class="scene" id="ending5">
 <h1>🛶 강 위의 모험</h1>
-<div class="image" style="background:linear-gradient(180deg,#87CEEB,#E0FFFF)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 토토는 작은 배를 타고 무지개 강을 탐험했어요!<br>
 물고기 친구들이 반갑게 인사했고, 새들이 노래했답니다.<br>
@@ -287,7 +294,7 @@ button:hover{
 <!-- 엔딩 6 -->
 <div class="scene" id="ending6">
 <h1>📚 지혜의 선물</h1>
-<div class="image" style="background:linear-gradient(180deg,#1a1a2e,#16213e)"></div>
+<div class="image" style="background-image:url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=900&h=400&fit=crop'); background-size:cover;"></div>
 <div class="story">
 부엉이는 토토에게 지혜의 책을 선물해주었어요!<br>
 책에는 부엉이가 오랫동안 배운 소중한 지혜들이 담겨있었답니다.<br>
