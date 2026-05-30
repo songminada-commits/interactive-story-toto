@@ -3,546 +3,339 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>토토의 마법 모험 - 인터랙티브 동화</title>
-
+<title>토토의 마법 모험</title>
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;}
 body{
-  margin:0;
-  font-family:'Noto Sans KR', 'Trebuchet MS', sans-serif;
   background:linear-gradient(135deg, #fff7e6, #dff6ff);
-  overflow-x:hidden;
-  min-height:100vh;
-}
-
-#app{
-  max-width:1100px;
-  margin:20px auto;
-  background:white;
-  border-radius:30px;
-  overflow:hidden;
-  box-shadow:0 10px 40px rgba(0,0,0,0.2);
-  position:relative;
-}
-
-.scene{
-  display:none;
-  padding:40px;
-  text-align:center;
-  animation:fade 0.7s ease;
+  font-family:'Noto Sans KR', Arial, sans-serif;
   min-height:100vh;
   display:flex;
-  flex-direction:column;
   justify-content:center;
+  align-items:center;
+  padding:10px;
 }
-
-.scene.active{
-  display:flex;
+#app{
+  background:white;
+  max-width:900px;
+  width:100%;
+  border-radius:30px;
+  padding:40px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  text-align:center;
 }
-
-@keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
 h1{
-  font-size:52px;
   color:#ff8b2b;
-  animation:float 2.5s infinite ease-in-out;
-  margin:0 0 20px 0;
-  text-shadow:2px 2px 4px rgba(0,0,0,0.1);
+  font-size:48px;
+  margin:20px 0;
+  animation:float 2s infinite;
 }
-
 @keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-8px);}
-  100%{transform:translateY(0);}
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
 }
-
 .story{
   font-size:26px;
-  line-height:2;
   color:#333;
+  line-height:2;
   margin:20px 0;
-  letter-spacing:0.5px;
+  min-height:100px;
 }
-
 .image{
   width:100%;
-  height:450px;
-  border-radius:25px;
-  margin:25px 0;
+  height:400px;
+  margin:20px 0;
+  border-radius:20px;
   background-size:cover;
   background-position:center;
-  box-shadow:0 8px 25px rgba(0,0,0,0.2);
-  animation:zoomSoft 12s infinite alternate;
-  border:5px solid rgba(255,200,0,0.3);
 }
-
-@keyframes zoomSoft{
-  from{transform:scale(1);}
-  to{transform:scale(1.02);}
-}
-
 .buttons{
   display:flex;
-  justify-content:center;
-  gap:18px;
+  gap:15px;
   flex-wrap:wrap;
-  margin-top:35px;
+  justify-content:center;
+  margin:30px 0;
 }
-
 button{
+  padding:18px 30px;
+  font-size:18px;
   border:none;
-  border-radius:25px;
-  padding:20px 35px;
-  font-size:20px;
-  cursor:pointer;
+  border-radius:20px;
   background:linear-gradient(135deg, #ffe082, #ffca28);
+  cursor:pointer;
   font-weight:bold;
-  transition:0.3s all;
-  box-shadow:0 6px 15px rgba(255,200,0,0.4);
-  font-family:'Noto Sans KR', sans-serif;
-  position:relative;
-  overflow:hidden;
-}
-
-button:before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:rgba(255,255,255,0.3);
   transition:0.3s;
+  box-shadow:0 5px 15px rgba(255,200,0,0.4);
 }
-
-button:hover:before{
-  left:100%;
-}
-
 button:hover{
-  transform:scale(1.1) translateY(-2px);
+  transform:scale(1.1);
   box-shadow:0 8px 20px rgba(255,200,0,0.6);
 }
-
-.tip{
-  background:linear-gradient(135deg, #fff5cc, #fff9e6);
-  padding:20px;
-  border-radius:20px;
-  font-size:19px;
-  margin-top:20px;
-  border-left:5px solid #ffca28;
-  text-align:left;
-  max-width:600px;
-  margin-left:auto;
-  margin-right:auto;
+.scene{display:none;}
+.active{display:block;animation:fadeIn 0.5s;}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
 }
-
-.voice-toggle{
+.voice-btn{
   position:fixed;
   top:20px;
   right:20px;
   background:#4CAF50;
   color:white;
-  border:none;
-  padding:12px 20px;
+  padding:10px 20px;
   border-radius:20px;
+  border:none;
   cursor:pointer;
   font-weight:bold;
   z-index:100;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
-
-.voice-toggle:hover{
-  background:#45a049;
-}
-
-.sparkle{
-  position:fixed;
-  width:8px;
-  height:8px;
-  background:gold;
-  border-radius:50%;
-  animation:sparkleAnim 5s linear infinite;
-  opacity:0.6;
-  pointer-events:none;
-}
-
-@keyframes sparkleAnim{
-  0%{
-    transform:translateY(0) scale(1);
-    opacity:0.8;
-  }
-  100%{
-    transform:translateY(-100vh) scale(0);
-    opacity:0;
-  }
-}
-
-.progress-bar{
-  height:6px;
-  background:#f0f0f0;
-  width:100%;
-}
-
-.progress-fill{
-  height:100%;
-  background:linear-gradient(90deg, #ff8b2b, #ffca28);
-  transition:width 0.3s;
-}
-
-@media(max-width:800px){
-  h1{font-size:38px;}
-  .story{font-size:20px; line-height:1.8;}
-  .image{height:280px;}
-  button{width:100%; font-size:18px; padding:16px 20px;}
-  .scene{padding:20px; min-height:auto;}
-  .voice-toggle{padding:10px 15px; font-size:14px;}
-}
-
-@media(max-width:500px){
-  h1{font-size:28px;}
-  .story{font-size:16px;}
-  button{font-size:15px;}
+.voice-btn:hover{background:#45a049;}
+@media(max-width:600px){
+  h1{font-size:32px;}
+  .story{font-size:18px;}
+  button{font-size:14px;padding:12px 20px;}
+  #app{padding:20px;}
 }
 </style>
 </head>
-
 <body>
 
-<button class="voice-toggle" onclick="toggleVoice()">🔊 음성 ON</button>
-
-<div class="progress-bar">
-  <div class="progress-fill" id="progressFill"></div>
-</div>
+<button class="voice-btn" onclick="toggleVoice()">🔊 음성ON</button>
 
 <div id="app">
 
-<!-- 장면 1: 시작 -->
+<!-- 씬 1 -->
 <div class="scene active" id="scene1">
-  <h1>🐰 토토와 신비한 버튼</h1>
-  
-  <div class="image" style="background:linear-gradient(135deg, #87CEEB 0%, #E0F6FF 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><defs><radialGradient id=%22sun%22 cx=%2280%25%22 cy=%2220%25%22><stop offset=%220%25%22 style=%22stop-color:%23FFD700;stop-opacity:1%22 /><stop offset=%22100%25%22 style=%22stop-color:%23FFA500;stop-opacity:0%22 /></radialGradient></defs><circle cx=%22650%22 cy=%22150%22 r=%22100%22 fill=%22url(%23sun)%22 /><ellipse cx=%22400%22 cy=%22500%22 rx=%22400%22 ry=%2280%22 fill=%22%2334a853%22 opacity=%220.7%22 /><circle cx=%22100%22 cy=%22250%22 r=%2260%22 fill=%22%2366BB6A%22 /><circle cx=%22700%22 cy=%22350%22 r=%2280%22 fill=%22%2366BB6A%22 /><path d=%22M 200 300 Q 220 250 240 300%22 stroke=%22%234CAF50%22 stroke-width=%223%22 fill=%22none%22 /><circle cx=%22400%22 cy=%22280%22 r=%2250%22 fill=%22%235B9BD5%22 opacity=%220.6%22 /><text x=%22400%22 y=%22310%22 font-size=%2240%22 text-anchor=%22middle%22>🐰</text></svg>');"></div>
-
-  <div class="story" data-voice="어느 날 맑고 아름다운 아침이었어요. 토끼 토토는 새들의 지저귐을 들으며 숲속을 산책하고 있었답니다. 햇빛은 반짝이고, 풀은 파르르 흔들리고 있었어요. 그런데 갑자기 숲속 바닥에서 신비로운 파란 버튼이 반짝이며 나타났어요. 토토는 궁금해서 멈추어 서 버튼을 바라보았답니다.">
-어느 날 맑고 아름다운 아침이었어요.<br><br>
-토끼 토토는 새들의 지저귐을 들으며 숲속을 산책하고 있었답니다.<br><br>
+<h1>🐰 토토와 신비한 버튼</h1>
+<div class="image" style="background:linear-gradient(135deg,#87CEEB,#E0F6FF)"></div>
+<div class="story">
+어느 날 맑은 아침, 토끼 토토는 숲속을 산책하고 있었어요.<br>
+새들은 노래하고, 햇빛은 반짝이고 있었답니다.<br>
 그런데 갑자기... 반짝이는 신비한 파란 버튼이 나타났어요! ✨
-  </div>
-
-  <div class="buttons">
-    <button onclick="goToScene('scene2')">🔵 버튼 눌러보기</button>
-    <button onclick="goToScene('scene3')">🟢 그냥 지나가기</button>
-  </div>
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene2', '버튼을 누르자, 눈이 부실 정도의 금색 빛이 터져나왔어요!')">🔵 버튼 눌러보기</button>
+<button onclick="goToScene('scene3', '토토는 신중하게 버튼을 누르지 않고 조용히 걸어갔어요.')">🟢 그냥 지나가기</button>
+</div>
 </div>
 
-<!-- 장면 2: 빛의 문 -->
+<!-- 씬 2 -->
 <div class="scene" id="scene2">
-  <h1>✨ 신비한 빛의 문</h1>
-
-  <div class="image" style="background:linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF69B4 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect width=%22800%22 height=%22600%22 fill=%22%23FFD700%22 opacity=%220.2%22 /><circle cx=%22400%22 cy=%22300%22 r=%22150%22 fill=%22none%22 stroke=%22%23FFD700%22 stroke-width=%225%22 opacity=%220.8%22 /><circle cx=%22400%22 cy=%22300%22 r=%22130%22 fill=%22none%22 stroke=%22%23FFA500%22 stroke-width=%223%22 opacity=%220.6%22 /><path d=%22M 400 150 L 420 200 L 380 200 Z%22 fill=%22%23FFD700%22 /><path d=%22M 400 450 L 420 400 L 380 400 Z%22 fill=%22%23FFD700%22 /><path d=%22M 250 300 L 300 320 L 280 280 Z%22 fill=%22%23FFA500%22 /><path d=%22M 550 300 L 500 320 L 520 280 Z%22 fill=%22%23FFA500%22 /><text x=%22400%22 y=%22330%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%23FFD700%22 opacity=%220.7%22>⭐</text></svg>');"></div>
-
-  <div class="story" data-voice="토토가 버튼을 톡 누르는 순간, 눈이 부실 정도로 밝은 금색 빛이 나타났어요! 우와아아! 숲속 한가운데에 마법의 문이 반짝이며 열렸답니다. 문 너머에는 무지개 빛이 가득했고, 아름다운 꽃들과 빛나는 나무들이 보였어요. 신비로운 음악이 들려오고 있었답니다. 토토는 두근거리는 마음으로 문을 통해 새로운 세계를 들어가 보기로 결심했어요.">
-토토가 버튼을 누르자!<br><br>
-눈이 부실 정도의 찬란한 빛이 터져나왔어요! ⚡<br><br>
-그리고 마법의 문이 활짝 열렸답니다!
-  </div>
-
-  <div class="buttons">
-    <button onclick="goToScene('scene4')">🐻 울고있는 친구 만나기</button>
-    <button onclick="goToScene('scene5')">🌈 무지개 강 가기</button>
-    <button onclick="goToScene('scene6')">🦉 지혜로운 부엉이 만나기</button>
-  </div>
+<h1>✨ 신비한 빛의 문</h1>
+<div class="image" style="background:linear-gradient(135deg,#FFD700,#FFA500)"></div>
+<div class="story">
+토토가 버튼을 누르자, 눈이 부실 정도의 찬란한 금색 빛이 나타났어요!<br>
+그리고 마법의 문이 활짝 열렸답니다!<br>
+문 너머에는 무지개 빛이 가득했고 신비로운 음악이 들려왔어요. 🎵
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene4', '문을 통해 나온 토토는 울음소리를 들었어요.')">🐻 친구 만나기</button>
+<button onclick="goToScene('scene5', '신기한 무지개 빛 강을 발견했어요!')">🌈 무지개 강 가기</button>
+<button onclick="goToScene('scene6', '지혜로운 부엉이가 나무 위에 앉아있었어요.')">🦉 부엉이 만나기</button>
+</div>
 </div>
 
-<!-- 장면 3: 조용한 숲길 -->
+<!-- 씬 3 -->
 <div class="scene" id="scene3">
-  <h1>🍃 조용한 숲길</h1>
-
-  <div class="image" style="background:linear-gradient(180deg, #87CEEB 0%, #90EE90 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><path d=%22M 0 400 Q 100 350 200 400 T 400 400 T 600 400 T 800 400 L 800 600 L 0 600 Z%22 fill=%22%2334a853%22 /><circle cx=%22150%22 cy=%22280%22 r=%2270%22 fill=%22%2352b788%22 /><circle cx=%22650%22 cy=%22250%22 r=%2280%22 fill=%22%2352b788%22 /><path d=%22M 400 150 L 380 300 L 420 300 Z%22 fill=%22%23654321%22 /><ellipse cx=%22400%22 cy=%22120%22 rx=%2260%22 ry=%2280%22 fill=%22%2366BB6A%22 /><circle cx=%22380%22 cy=%22100%22 r=%2220%22 fill=%22%239CCC65%22 /><circle cx=%22420%22 cy=%2290%22 r=%2225%22 fill=%22%239CCC65%22 /><text x=%22400%22 y=%22450%22 font-size=%2240%22 text-anchor=%22middle%22>🗺️</text></svg>');"></div>
-
-  <div class="story" data-voice="토토는 버튼을 누르지 않기로 결정하고 조용히 숲길을 따라 걸어갔어요. 새들의 노래도 부드럽고, 햇빛도 따뜻했답니다. 그때 바람이 살랑살랑 불더니, 오래된 낡은 지도가 하늘에서 날아왔어요. 반갑게 웃으며 지도를 집어 들은 토토. 그 지도에는 친구들을 찾아가는 길과 숨겨진 보물이 그려져 있었답니다.">
-토토는 신중하게 버튼을 누르지 않고<br><br>
-조용한 숲길을 따라 걸어갔어요.<br><br>
-그때 신비로운 지도가 하늘에서 날아왔어요! 🗺️
-  </div>
-
-  <div class="buttons">
-    <button onclick="goToScene('scene7')">🗺 지도 따라가기</button>
-    <button onclick="goToScene('scene1')">↩ 처음으로</button>
-  </div>
+<h1>🍃 조용한 숲길</h1>
+<div class="image" style="background:linear-gradient(180deg,#87CEEB,#90EE90)"></div>
+<div class="story">
+토토는 신중하게 버튼을 누르지 않고 조용한 숲길을 따라 걸어갔어요.<br>
+새들의 노래도 부드럽고, 햇빛도 따뜻했답니다.<br>
+그때 바람이 불더니 신비로운 지도가 하늘에서 날아왔어요! 🗺️
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene7', '지도를 따라가던 토토는 아름다운 비밀 꽃밭을 발견했어요!')">🗺 지도 따라가기</button>
+<button onclick="goToScene('scene1', '')">↩ 처음으로</button>
+</div>
 </div>
 
-<!-- 장면 4: 길을 잃은 곰 친구 -->
+<!-- 씬 4 -->
 <div class="scene" id="scene4">
-  <h1>🐻 길을 잃은 친구</h1>
-
-  <div class="image" style="background:linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><circle cx=%22400%22 cy=%22300%22 r=%22120%22 fill=%22%238B4513%22 /><circle cx=%22370%22 cy=%22250%22 r=%2235%22 fill=%228B4513%22 /><circle cx=%22430%22 cy=%22250%22 r=%2235%22 fill=%228B4513%22 /><circle cx=%22360%22 cy=%22230%22 r=%228%22 fill=%22black%22 /><circle cx=%22440%22 cy=%22230%22 r=%228%22 fill=%22black%22 /><circle cx=%22400%22 cy=%22280%22 r=%2210%22 fill=%22black%22 /><path d=%22M 380 320 Q 400 340 420 320%22 stroke=%22black%22 stroke-width=%223%22 fill=%22none%22 /><circle cx=%22300%22 cy=%22400%22 r=%2230%22 fill=%228B4513%22 /><circle cx=%22500%22 cy=%22420%22 r=%2235%22 fill=%228B4513%22 /><text x=%22400%22 y=%22480%22 font-size=%2240%22 text-anchor=%22middle%22>😢</text></svg>');"></div>
-
-  <div class="story" data-voice="문을 통해 나온 토토는 작은 울음소리를 들었어요. 따라가 보니 갈색 곰 친구가 길을 잃고 슬프게 울고 있었답니다. 곰은 엄마를 찾지 못해 혼자라고 했어요. 하지만 착한 토토는 곰 친구의 손을 꼭 잡고 말했어요. 괜찮아, 우리 함께 엄마를 찾아가자! 토토와 곰은 함께라면 뭐든지 할 수 있을 것 같았답니다.">
-마법의 세계에서 작은 울음소리가...😭<br><br>
-길을 잃은 갈색 곰 친구를 발견했어요!<br><br>
-토토는 착한 마음으로 도와주기로 했답니다. 💚
-  </div>
-
-  <div class="tip">
-🎤 이 동화는 자연스러운 AI 음성 내레이션이 함께합니다!
-  </div>
-
-  <div class="buttons">
-    <button onclick="goToScene('ending1')">⭐ 친구 도와주기</button>
-    <button onclick="goToScene('ending4')">🎂 함께 간식 먹기</button>
-  </div>
+<h1>🐻 길을 잃은 친구</h1>
+<div class="image" style="background:linear-gradient(135deg,#FFB6C1,#FFC0CB)"></div>
+<div class="story">
+마법의 세계에서 작은 울음소리가 들렸어요.<br>
+따라가 보니 갈색 곰 친구가 길을 잃고 슬프게 울고 있었답니다.<br>
+착한 토토는 곰 친구의 손을 꼭 잡고 말했어요. "괜찮아, 우리 함께 가자!" 💚
+</div>
+<div class="buttons">
+<button onclick="goToScene('ending1', '토토는 착한 마음으로 곰 친구를 도와주었어요.')">⭐ 친구 도와주기</button>
+<button onclick="goToScene('ending4', '토토와 곰은 달콤한 케이크를 함께 먹었어요!')">🎂 함께 간식 먹기</button>
+</div>
 </div>
 
-<!-- 장면 5: 무지개 강 -->
+<!-- 씬 5 -->
 <div class="scene" id="scene5">
-  <h1>🌈 무지개 강</h1>
-
-  <div class="image" style="background:linear-gradient(180deg, #87CEEB 0%, #E0FFFF 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><defs><linearGradient id=%22rainbow%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:red%22 /><stop offset=%2220%25%22 style=%22stop-color:orange%22 /><stop offset=%2240%25%22 style=%22stop-color:yellow%22 /><stop offset=%2260%25%22 style=%22stop-color:green%22 /><stop offset=%2280%25%22 style=%22stop-color:blue%22 /><stop offset=%22100%25%22 style=%22stop-color:purple%22 /></linearGradient></defs><ellipse cx=%22400%22 cy=%22300%22 rx=%22350%22 ry=%22150%22 fill=%22url(%23rainbow)%22 opacity=%220.4%22 /><path d=%22M 50 350 Q 150 300 250 350 T 550 350 T 800 350 L 800 600 L 0 600 Z%22 fill=%22%233498db%22 /><rect x=%22320%22 y=%22200%22 width=%22160%22 height=%2220%22 fill=%22%23FFD700%22 rx=%2210%22 /><circle cx=%22400%22 cy=%22190%22 r=%2225%22 fill=%22%23FFD700%22 /><text x=%22400%22 y=%22480%22 font-size=%2240%22 text-anchor=%22middle%22>💎</text></svg>');"></div>
-
-  <div class="story" data-voice="토토가 계속 걸어가다 보니 신기한 무지개 빛이 흐르는 강을 발견했어요! 강 위에는 반짝이는 다리가 있었고, 멀리 물 위에서 보물상자가 반짝이며 떠다니고 있었답니다. 아름다운 무지개의 빛이 물에 비쳐서 마치 마법의 세계에 온 것 같았어요. 토토는 흥분해서 아, 저 보물상자 안에는 뭐가 들어있을까? 라고 생각하며 다리를 건너가기로 했답니다.">
-와! 무지개 빛이 흐르는 강을 발견했어요! 🌈<br><br>
-반짝이는 다리와 신비한 보물상자가 있었어요!<br><br>
-토토는 보물의 정체가 궁금했답니다. ✨
-  </div>
-
-  <div class="buttons">
-    <button onclick="goToScene('ending2')">💎 보물 찾기</button>
-    <button onclick="goToScene('ending5')">🛶 배 타고 놀기</button>
-  </div>
+<h1>🌈 무지개 강</h1>
+<div class="image" style="background:linear-gradient(180deg,#87CEEB,#E0FFFF)"></div>
+<div class="story">
+토토가 걸어가다 보니 신기한 무지개 빛이 흐르는 강을 발견했어요!<br>
+강 위에는 반짝이는 다리가 있었고, 멀리 보물상자가 보였답니다.<br>
+토토는 흥분해서 다리를 건너가기로 했어요! 💎
+</div>
+<div class="buttons">
+<button onclick="goToScene('ending2', '보물상자를 열어보니 반짝이는 별사탕이 있었어요!')">💎 보물 찾기</button>
+<button onclick="goToScene('ending5', '토토는 작은 배를 타고 강을 탐험했어요!')">🛶 배 타고 놀기</button>
+</div>
 </div>
 
-<!-- 장면 6: 지혜로운 부엉이 -->
+<!-- 씬 6 -->
 <div class="scene" id="scene6">
-  <h1>🦉 지혜로운 부엉이</h1>
-
-  <div class="image" style="background:linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><circle cx=%22400%22 cy=%22150%22 r=%2240%22 fill=%22%23FFD700%22 /><ellipse cx=%22400%22 cy=%22300%22 rx=%2290%22 ry=%22120%22 fill=%22%238B4513%22 /><circle cx=%22370%22 cy=%22260%22 r=%2235%22 fill=%22%23FFD700%22 /><circle cx=%22430%22 cy=%22260%22 r=%2235%22 fill=%22%23FFD700%22 /><circle cx=%22368%22 cy=%22258%22 r=%2215%22 fill=%22black%22 /><circle cx=%22432%22 cy=%22258%22 r=%2215%22 fill=%22black%22 /><ellipse cx=%22400%22 cy=%22350%22 rx=%2270%22 ry=%2280%22 fill=%22%238B6F47%22 /><path d=%22M 350 280 L 340 250 L 360 270 Z%22 fill=%22%23FFB347%22 /><path d=%22M 450 280 L 460 250 L 440 270 Z%22 fill=%22%23FFB347%22 /><path d=%22M 380 380 L 400 400 L 420 380 Z%22 fill=%22%23FFB347%22 /></svg>');"></div>
-
-  <div class="story" data-voice="마법의 숲 깊숙한 곳에 커다란 나무가 있었어요. 그 위에는 지혜로운 부엉이가 앉아있었답니다. 부엉이는 큰 눈으로 토토를 바라보며 말했어요. 안녕, 작은 토끼여. 나는 이 숲에서 많은 일들을 봐왔단다. 그리고 한 가지 알게 되었어. 바로 친구를 돕는 마음과 용기가 세상에서 가장 귀한 보물이라는 것이야. 부엉이의 말에 토토는 깊이 생각해 보았답니다.">
-신비한 나무 위에 지혜로운 부엉이가 앉아있었어요! 🦉<br><br>
-부엉이는 토토에게 중요한 이야기를 해주었답니다.<br><br>
-용기와 친절의 참된 의미를 배웠어요. 💫
-  </div>
-
-  <div class="buttons">
-    <button onclick="goToScene('ending6')">📚 지혜의 이야기 듣기</button>
-  </div>
+<h1>🦉 지혜로운 부엉이</h1>
+<div class="image" style="background:linear-gradient(180deg,#1a1a2e,#16213e)"></div>
+<div class="story">
+신비한 나무 위에 지혜로운 부엉이가 앉아있었어요.<br>
+부엉이는 토토에게 말했답니다:<br>
+"친구를 돕는 용기와 세상의 아름다움을 감사하는 마음이 가장 큰 보물이란다." 💫
+</div>
+<div class="buttons">
+<button onclick="goToScene('ending6', '부엉이는 토토에게 지혜의 책을 선물해주었어요!')">📚 지혜 배우기</button>
+</div>
 </div>
 
-<!-- 장면 7: 비밀 꽃밭 -->
+<!-- 씬 7 -->
 <div class="scene" id="scene7">
-  <h1>🌸 비밀 꽃밭</h1>
-
-  <div class="image" style="background:linear-gradient(180deg, #FFB6C1 0%, #FFD700 50%, #87CEEB 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><circle cx=%22150%22 cy=%22300%22 r=%2240%22 fill=%22%23FF69B4%22 /><circle cx=%22300%22 cy=%22250%22 r=%2235%22 fill=%22%23FFD700%22 /><circle cx=%22450%22 cy=%22320%22 r=%2240%22 fill=%22%23FF1493%22 /><circle cx=%22600%22 cy=%22280%22 r=%2238%22 fill=%22%23FF69B4%22 /><circle cx=%22700%22 cy=%22350%22 r=%2235%22 fill=%22%23FFD700%22 /><path d=%22M 150 340 L 150 450 L 130 450 M 150 450 L 170 450%22 stroke=%22%23228B22%22 stroke-width=%223%22 /><path d=%22M 300 285 L 300 450 L 280 450 M 300 450 L 320 450%22 stroke=%22%23228B22%22 stroke-width=%223%22 /><path d=%22M 450 360 L 450 450 L 430 450 M 450 450 L 470 450%22 stroke=%22%23228B22%22 stroke-width=%223%22 /><path d=%22M 600 320 L 600 450 L 580 450 M 600 450 L 620 450%22 stroke=%22%23228B22%22 stroke-width=%223%22 /><text x=%22400%22 y=%22500%22 font-size=%2240%22 text-anchor=%22middle%22>🎵</text></svg>');"></div>
-
-  <div class="story" data-voice="지도를 따라가던 토토는 정말 아름다운 비밀 꽃밭을 발견했어요! 하늘색, 빨간색, 노란색의 예쁜 꽃들이 바람에 흔들리고 있었답니다. 그리고 그 위에 새 친구들이 앉아 있었어요. 새들은 토토를 보자 반갑게 인사하며 아름다운 노래를 부르기 시작했어요. 음악 소리에 꽃들도 춤을 추는 것 같았답니다. 토토는 새들과 함께 즐겁게 노래하며 이 아름다운 순간을 마음껏 즐겼어요.">
-아, 정말 아름다운 비밀 꽃밭이었어요! 🌸🌼🌷<br><br>
-새 친구들이 아름다운 노래를 부르고 있었답니다!<br><br>
-토토는 새들과 함께 노래하며 즐거운 시간을 보냈어요. 🎶
-  </div>
-
-  <div class="buttons">
-    <button onclick="goToScene('ending3')">🎶 새들과 함께 노래하기</button>
-  </div>
+<h1>🌸 비밀 꽃밭</h1>
+<div class="image" style="background:linear-gradient(180deg,#FFB6C1,#FFD700)"></div>
+<div class="story">
+지도를 따라가던 토토는 아름다운 비밀 꽃밭을 발견했어요!<br>
+하늘색, 빨간색, 노란색 꽃들이 바람에 흔들리고 있었답니다.<br>
+새 친구들이 아름다운 노래를 부르고 있었어요! 🎵
+</div>
+<div class="buttons">
+<button onclick="goToScene('ending3', '토토는 새들과 함께 즐겁게 노래했어요!')">🎶 노래하기</button>
+</div>
 </div>
 
-<!-- 결말들 -->
-
+<!-- 엔딩 1 -->
 <div class="scene" id="ending1">
-  <h1>🥳 행복한 결말</h1>
-  
-  <div class="image" style="background:linear-gradient(135deg, #FFD700 0%, #FF69B4 50%, #87CEEB 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><circle cx=%22300%22 cy=%22300%22 r=%22100%22 fill=%228B4513%22 /><circle cx=%22500%22 cy=%22280%22 r=%2280%22 fill=%22%23FFB6C1%22 /><circle cx=%22280%22 cy=%22280%22 r=%2220%22 fill=%22black%22 /><circle cx=%22520%22 cy=%22260%22 r=%2215%22 fill=%22black%22 /><path d=%22M 300 350 L 300 450 M 250 380 L 350 380 M 500 340 L 500 440 M 480 380 L 520 380%22 stroke=%22%23654321%22 stroke-width=%223%22 /><path d=%22M 400 450 L 380 550 L 420 550 Z%22 fill=%22%236FCF97%22 /><circle cx=%22360%22 cy=%22500%22 r=%2230%22 fill=%22%23FFD700%22 /><circle cx=%22450%22 cy=%22520%22 r=%2225%22 fill=%22%23FFD700%22 /></svg>');"></div>
-  
-  <div class="story" data-voice="토토는 착한 마음으로 곰 친구를 도와주었어요. 결국 곰은 자기 엄마를 찾을 수 있었답니다. 엄마곰은 토토에게 감사하며 안아주었어요. 그날 밤, 토토와 곰 가족, 그리고 새 친구들은 모두 함께 달콤한 음식을 나누어 먹으며 즐거운 파티를 열었답니다. 토토는 생각했어요. 아, 새로운 친구를 사귀고 함께 도와줄 수 있다는 것이 이렇게 행복할 수가 있구나. 토토의 마법 모험은 정말 특별한 추억이 되었답니다.">
-토토가 착한 마음으로 곰 친구를 도와주자,<br><br>
-모두가 행복하게 웃었어요! 😊💚<br><br>
-새로운 친구들과 함께한 이 날은<br>
-평생 잊지 못할 특별한 추억이 되었답니다. ✨
-  </div>
-  
-  <div class="buttons">
-    <button onclick="goToScene('scene1')">🔄 다시 시작</button>
-  </div>
+<h1>🥳 행복한 결말</h1>
+<div class="image" style="background:linear-gradient(135deg,#FFD700,#FF69B4)"></div>
+<div class="story">
+토토는 착한 마음으로 곰 친구를 도와주었어요.<br>
+결국 곰은 자기 엄마를 찾을 수 있었답니다.<br>
+그날 밤, 모두 함께 달콤한 음식을 나누며 즐거운 파티를 열었어요!<br>
+새로운 친구들과 함께한 이날은 평생 잊지 못할 추억이 되었답니다. ✨
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene1', '')">🔄 다시 시작</button>
+</div>
 </div>
 
+<!-- 엔딩 2 -->
 <div class="scene" id="ending2">
-  <h1>💎 반짝이는 보물</h1>
-  
-  <div class="image" style="background:linear-gradient(135deg, #FFD700 0%, #FFA500 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect x=%22250%22 y=%22250%22 width=%22300%22 height=%22200%22 fill=%22%23CD7F32%22 stroke=%22%23FFD700%22 stroke-width=%225%22 rx=%2220%22 /><circle cx=%22400%22 cy=%22280%22 r=%2230%22 fill=%22%23FFD700%22 /><circle cx=%22350%22 cy=%22320%22 r=%2225%22 fill=%22%23FF69B4%22 /><circle cx=%22450%22 cy=%22330%22 r=%2220%22 fill=%22%236495ED%22 /><circle cx=%22400%22 cy=%22380%22 r=%2228%22 fill=%22%23228B22%22 /><path d=%22M 280 250 L 260 200 L 310 220 Z%22 fill=%22%23FFD700%22 /><path d=%22M 520 250 L 540 200 L 490 220 Z%22 fill=%22%23FFD700%22 /><text x=%22400%22 cy=%22500%22 font-size=%2240%22 text-anchor=%22middle%22>🐰</text></svg>');"></div>
-  
-  <div class="story" data-voice="토토가 보물상자를 열면 나타난 것은 별 모양의 맛있는 사탕들이었어요! 그 사탕들은 세상에서 가장 달콤했답니다. 토토는 바로 친구들에게 달려가 이 멋진 보물을 나누어 주었어요. 곰 친구, 새 친구들, 모두가 별사탕을 먹으며 행복하게 웃었답니다. 이날의 모험으로 토토는 중요한 것을 배웠어요. 보물이란 금이나 보석이 아니라, 친구들과 함께 나누는 순간이라는 거 말이에요.">
-보물상자를 열어보니... 반짝이는 별사탕! ⭐<br><br>
-토토는 친구들과 함께 맛있게 나누어 먹었어요!<br><br>
-진정한 보물은 친구와 나누는 행복이었답니다. 💫
-  </div>
-  
-  <div class="buttons">
-    <button onclick="goToScene('scene1')">🔄 다시 시작</button>
-  </div>
+<h1>💎 반짝이는 보물</h1>
+<div class="image" style="background:linear-gradient(135deg,#FFD700,#FFA500)"></div>
+<div class="story">
+보물상자를 열어보니 반짝이는 별사탕들이 있었어요!<br>
+토토는 바로 친구들에게 달려가 이 보물을 나누어 주었답니다.<br>
+모두가 별사탕을 먹으며 행복하게 웃었어요.<br>
+진정한 보물은 친구와 나누는 행복이었답니다! 💫
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene1', '')">🔄 다시 시작</button>
+</div>
 </div>
 
+<!-- 엔딩 3 -->
 <div class="scene" id="ending3">
-  <h1>🎶 노래하는 숲</h1>
-  
-  <div class="image" style="background:linear-gradient(180deg, #87CEEB 0%, #90EE90 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><circle cx=%22150%22 cy=%22200%22 r=%2220%22 fill=%22%23FFD700%22 /><circle cx=%22300%22 cy=%22180%22 r=%2218%22 fill=%22%23FF69B4%22 /><circle cx=%22500%22 cy=%22210%22 r=%2220%22 fill=%22%236495ED%22 /><circle cx=%22650%22 cy=%22190%22 r=%2218%22 fill=%22%23228B22%22 /><path d=%22M 150 220 L 150 280 L 130 280 M 150 280 L 170 280%22 stroke=%22%23654321%22 stroke-width=%223%22 /><text x=%22400%22 y=%22350%22 font-size=%2240%22 text-anchor=%22middle%22>🐰</text><path d=%22M 380 450 Q 400 420 420 450%22 stroke=%22%23FFD700%22 stroke-width=%222%22 /><text x=%22350%22 y=%22400%22 font-size=%2230%22>♪</text><text x=%22450%22 y=%22400%22 font-size=%2230%22>♪</text></svg>');"></div>
-  
-  <div class="story" data-voice="토토는 새 친구들과 함께 아름다운 노래를 불렀어요. 음악 소리에 숲 전체가 반응했답니다. 꽃들은 음악에 맞춰 흔들리고, 나뭇잎들은 소리 내어 춤을 추었어요. 마치 전체 숲이 하나의 거대한 음악회장이 된 것처럼요. 토토는 이 순간의 아름다움에 눈을 감고 감사했어요. 이런 순간이 정말 마법이구나, 라고 생각하며 계속 새들과 함께 노래했답니다.">
-새들과 함께 아름다운 노래를 불렀어요! 🎵🎶<br><br>
-숲 전체가 음악회장이 되었답니다!<br><br>
-음악과 함께 펼쳐진 마법 같은 순간,<br>
-��토의 마음은 행복으로 가득 찼어요. 🌈✨
-  </div>
-  
-  <div class="buttons">
-    <button onclick="goToScene('scene1')">🔄 다시 시작</button>
-  </div>
+<h1>🎶 노래하는 숲</h1>
+<div class="image" style="background:linear-gradient(180deg,#87CEEB,#90EE90)"></div>
+<div class="story">
+토토는 새 친구들과 함께 아름다운 노래를 불렀어요.<br>
+음악 소리에 숲 전체가 반응했답니다.<br>
+꽃들은 음악에 맞춰 흔들리고, 나뭇잎들은 춤을 추었어요.<br>
+마치 전체 숲이 하나의 거대한 음악회장이 된 것처럼요! 🌈
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene1', '')">🔄 다시 시작</button>
+</div>
 </div>
 
+<!-- 엔딩 4 -->
 <div class="scene" id="ending4">
-  <h1>🎂 달콤한 파티</h1>
-  
-  <div class="image" style="background:linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect x=%22250%22 y=%22200%22 width=%22300%22 height=%22250%22 fill=%22%23D2B48C%22 stroke=%22%238B4513%22 stroke-width=%223%22 /><circle cx=%22350%22 cy=%22180%22 r=%2220%22 fill=%22%23FF69B4%22 /><circle cx=%22450%22 cy=%22170%22 r=%2220%22 fill=%22%23FFD700%22 /><circle cx=%22400%22 cy=%22140%22 r=%2225%22 fill=%22%23FF1493%22 /><ellipse cx=%22400%22 cy=%22300%22 rx=%22140%22 ry=%2250%22 fill=%22%23FFA07A%22 /><text x=%22350%22 y=%22350%22 font-size=%2230%22>🐰</text><text x=%22500%22 y=%22360%22 font-size=%2230%22>🐻</text></svg>');"></div>
-  
-  <div class="story" data-voice="토토와 곰 친구는 함께 맛있는 생일 케이크를 먹기로 했어요. 초콜릿 케이크 위에는 예쁜 딸기들이 올려져 있었답니다. 케이크를 한 입 깨물자, 입 안 가득 달콤한 맛이 퍼졌어요. 곰도 매우 행복해하며 꼭 안아주었답니다. 우리 정말 좋은 친구야, 라고 말이에요. 토토도 곰을 안아주며 대답했어요. 응, 정말 그래. 너를 만나서 너무 행복해. 둘의 우정은 이 달콤한 순간으로 더욱 깊어졌답니다.">
-토토와 곰은 달콤한 생일 케이크를 함께 먹었어요! 🎂<br><br>
-초콜릿 향기와 딸기의 신맛, 그리고 크림의 부드러움...<br><br>
-함께한 시간이 가장 맛있었답니다. 💜😊
-  </div>
-  
-  <div class="buttons">
-    <button onclick="goToScene('scene1')">🔄 다시 시작</button>
-  </div>
+<h1>🎂 달콤한 파티</h1>
+<div class="image" style="background:linear-gradient(135deg,#FFB6C1,#FFC0CB)"></div>
+<div class="story">
+토토와 곰은 달콤한 생일 케이크를 함께 먹었어요!<br>
+초콜릿 향기와 딸기의 신맛이 입안에 가득했답니다.<br>
+곰도 매우 행복해하며 토토를 꼭 안아주었어요.<br>
+"우리 정말 좋은 친구야!" 함께한 시간이 가장 맛있었답니다! 💜
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene1', '')">🔄 다시 시작</button>
+</div>
 </div>
 
+<!-- 엔딩 5 -->
 <div class="scene" id="ending5">
-  <h1>🛶 강 위의 모험</h1>
-  
-  <div class="image" style="background:linear-gradient(180deg, #87CEEB 0%, #E0FFFF 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><path d=%22M 50 350 Q 200 300 400 350 T 800 350 L 800 600 L 0 600 Z%22 fill=%22%233498db%22 /><path d=%22M 300 350 L 320 380 L 280 380 Z%22 fill=%22%238B4513%22 /><circle cx=%22300%22 cy=%22360%22 r=%2230%22 fill=%22%23FFB6C1%22 /><path d=%22M 280 380 Q 300 400 320 380%22 stroke=%22%23000%22 stroke-width=%222%22 /><text x=%22300%22 y=%22420%22 font-size=%2220%22 text-anchor=%22middle%22>🐰</text><path d=%22M 250 300 L 300 250 L 350 300%22 fill=%22%23FF69B4%22 /><circle cx=%22300%22 cy=%22220%22 r=%2215%22 fill=%22%23FFD700%22 /></svg>');"></div>
-  
-  <div class="story" data-voice="토토는 작은 배를 타고 무지개 강을 탐험했어요. 강물은 부드럽게 흐르고, 물고기 친구들이 반갑게 인사했답니다. 배는 신비로운 무지개 다리 아래를 지나갔고, 토토는 그 아름다움에 숨이 멎을 지경이었어요. 강 양쪽에는 형형색색의 꽃들이 피어있었고, 하늘에는 다른 새들이 노래하며 날아다녔어요. 강물 위의 햇빛은 반짝이는 보석처럼 빛났답니다. 토토는 이 모험 속에서 세상의 아름다움을 새롭게 느낄 수 있었어요.">
-토토는 작은 배를 타고 무지개 강을 탐험했어요! 🛶<br><br>
-물고기도 인사하고, 새도 노래하고,<br><br>
-강 위에서 펼쳐진 자연의 마법,<br>
-정말 아름답고 신비로웠답니다. 🌈✨
-  </div>
-  
-  <div class="buttons">
-    <button onclick="goToScene('scene1')">🔄 다시 시작</button>
-  </div>
+<h1>🛶 강 위의 모험</h1>
+<div class="image" style="background:linear-gradient(180deg,#87CEEB,#E0FFFF)"></div>
+<div class="story">
+토토는 작은 배를 타고 무지개 강을 탐험했어요!<br>
+물고기 친구들이 반갑게 인사했고, 새들이 노래했답니다.<br>
+강 양쪽에는 형형색색의 꽃들이 피어있었어요.<br>
+강 위에서 펼쳐진 자연의 마법, 정말 아름답고 신비로웠답니다! 🌈
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene1', '')">🔄 다시 시작</button>
+</div>
 </div>
 
+<!-- 엔딩 6 -->
 <div class="scene" id="ending6">
-  <h1>📚 지혜의 선물</h1>
-  
-  <div class="image" style="background:linear-gradient(180deg, #1a1a2e 0%, #16213e 100%), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect x=%22200%22 y=%22200%22 width=%22200%22 height=%22250%22 fill=%22%238B4513%22 stroke=%22%23FFD700%22 stroke-width=%223%22 /><line x1=%22300%22 y1=%22220%22 x2=%22300%22 y2=%22430%22 stroke=%22%23FFD700%22 stroke-width=%222%22 /><text x=%22250%22 y=%22280%22 font-size=%2220%22>✍️</text><text x=%22350%22 y=%22280%22 font-size=%2220%22>✍️</text><path d=%22M 350 300 L 380 250 M 380 250 Q 400 240 420 250%22 stroke=%22%23FFD700%22 stroke-width=%223%22 /><circle cx=%22350%22 cy=%22350%22 r=%2215%22 fill=%22%23FF69B4%22 /><circle cx=%22450%22 cy=%22380%22 r=%2220%22 fill=%22%236495ED%22 /><text x=%22400%22 y=%22500%22 font-size=%2240%22 text-anchor=%22middle%22>🦉</text></svg>');"></div>
-  
-  <div class="story" data-voice="부엉이는 토토에게 지혜의 책을 선물로 주었어요. 책에는 지혜로운 말들로 가득 찼답니다. 부엉이가 말했어요. 작은 토끼여, 이 책 속의 이야기들은 모두 내가 오랫동안 숲에서 배운 것들이야. 가장 중요한 것은 이것이란다. 친구를 돕는 용기, 세상의 아름다움을 감사하는 마음, 그리고 다른 친구들을 이해하고 사랑하는 것 말이야. 이 세 가지만 기억한다면 넌 언제나 행복할 거야. 토토는 부엉이의 말을 마음에 새기며 감사했어요.">
-부엉이는 토토에게 지혜의 책을 선물했어요! 📚<br><br>
-책에는 부엉이가 오랫동안 배운<br>
-소중한 지혜들이 담겨있었답니다.<br><br>
-용기, 감사, 그리고 사랑... ✨💚
-  </div>
-  
-  <div class="buttons">
-    <button onclick="goToScene('scene1')">🔄 다시 시작</button>
-  </div>
+<h1>📚 지혜의 선물</h1>
+<div class="image" style="background:linear-gradient(180deg,#1a1a2e,#16213e)"></div>
+<div class="story">
+부엉이는 토토에게 지혜의 책을 선물해주었어요!<br>
+책에는 부엉이가 오랫동안 배운 소중한 지혜들이 담겨있었답니다.<br>
+"용기, 감사, 그리고 사랑... 이 세 가지를 기억한다면 넌 언제나 행복할 거야."<br>
+토토는 부엉이의 말을 마음에 새기며 감사했어요. ✨
+</div>
+<div class="buttons">
+<button onclick="goToScene('scene1', '')">🔄 다시 시작</button>
+</div>
 </div>
 
 </div>
 
 <script>
-// 전역 설정
 let voiceEnabled = true;
 
-// 음성 토글
-function toggleVoice() {
+function toggleVoice(){
   voiceEnabled = !voiceEnabled;
-  const btn = document.querySelector('.voice-toggle');
-  btn.textContent = voiceEnabled ? '🔊 음성 ON' : '🔇 음성 OFF';
+  document.querySelector('.voice-btn').textContent = voiceEnabled ? '🔊 음성ON' : '🔇 음성OFF';
 }
 
-// 장면 전환
-function goToScene(id) {
-  document.querySelectorAll('.scene').forEach(scene => {
-    scene.classList.remove('active');
-  });
-
-  const target = document.getElementById(id);
-  target.classList.add('active');
-
-  // 진행상황 바 업데이트
-  updateProgressBar(id);
-
-  // 음성 재생
-  if (voiceEnabled) {
-    speakScene(target);
+function goToScene(id, text){
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  
+  if(voiceEnabled && text){
+    speak(text);
   }
-
+  
   window.scrollTo(0, 0);
 }
 
-// 진행상황 바 업데이트
-function updateProgressBar(id) {
-  const scenes = ['scene1', 'scene2', 'scene3', 'scene4', 'scene5', 'scene6', 'scene7', 
-                  'ending1', 'ending2', 'ending3', 'ending4', 'ending5', 'ending6'];
-  const currentIndex = scenes.indexOf(id);
-  const progress = ((currentIndex + 1) / scenes.length) * 100;
-  document.getElementById('progressFill').style.width = progress + '%';
-}
-
-// 자연스러운 음성 내레이션 (한국어 지원)
-function speakScene(scene) {
-  const story = scene.querySelector('.story');
-  if (!story) return;
-
-  const text = story.dataset.voice || story.innerText;
-  
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'ko-KR';
-  utterance.rate = 0.9;
-  utterance.pitch = 1.0;
-  utterance.volume = 1.0;
-
-  try {
+function speak(text){
+  if('speechSynthesis' in window){
     speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ko-KR';
+    utterance.rate = 0.9;
     speechSynthesis.speak(utterance);
-  } catch (e) {
-    console.log('음성 API를 사용할 수 없습니다:', e);
   }
 }
 
-// 페이지 로드 시 초기화
 window.onload = () => {
-  const first = document.querySelector('.scene.active');
-  speakScene(first);
-  updateProgressBar('scene1');
-  createSparkles();
-};
-
-// 반짝이 효과
-function createSparkles() {
-  for (let i = 0; i < 30; i++) {
-    const sparkle = document.createElement('div');
-    sparkle.classList.add('sparkle');
-    sparkle.style.left = Math.random() * 100 + '%';
-    sparkle.style.top = Math.random() * 100 + '%';
-    sparkle.style.animationDuration = (3 + Math.random() * 7) + 's';
-    sparkle.style.animationDelay = Math.random() * 2 + 's';
-    document.body.appendChild(sparkle);
+  const firstText = '어느 날 맑은 아침, 토끼 토토는 숲속을 산책하고 있었어요.';
+  if(voiceEnabled){
+    speak(firstText);
   }
-}
+};
 </script>
 
 </body>
